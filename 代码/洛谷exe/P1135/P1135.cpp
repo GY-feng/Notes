@@ -1,36 +1,52 @@
 #include<bits/stdc++.h>
 using namespace std;
-int N,A,B;
-int floor_nums[202];
+int N,A,B;//A:开始的层数：B：目标的层数
+int floor_nums[202];//第N楼要移动的层数
+int step=0;
+int bfs(int now_floor);
 int main()
 {
     cin>>N>>A>>B;
-
+    for(int i=1;i<=N;i++)
+    {
+        cin>>floor_nums[i];
+    }
+    int a=bfs(A);
+    if(a==-1)
+        cout<<-1;
+    if(a==1)
+        cout<<step;
 }
-void bfs(int now_floor,int aim_floor)
+int bfs(int now_floor)
+//广度优先搜索，找最短的路径
 {
-    if(now_floor==aim_floor)
-        return;
     queue<int> floor;
+    floor.push(now_floor);
+    int head=now_floor;
+    while (!floor.empty())
+    {
+        head=floor.front();
+        if(head==B)
+            return 1;
+        if(head==A)//回到了开始的层数
+            return -1;
+        floor.pop();//弹出第一个元素
+        //int z=0;
+        if(now_floor+floor_nums[now_floor]<=B)
+        {
+            floor.push(now_floor+floor_nums[now_floor]);
+            step++;
+        }
+        if(now_floor-floor_nums[now_floor]>=1)
+        {
+            floor.push(now_floor-floor_nums[now_floor]);
+            step++;
+        }
+    }
+    
     
 }
-bool check(bool a,int now ,int floor)//3个参数,a代表上下，1上0下，now代表现在的楼层,floor代表要去到什么楼层
-{
-    if(a==true)//要上
-    {
-        if(now+floor>N)
-            return false;
-        else
-            return true;
-    }
-    if(a==false)//要下
-    {
-        if(now-floor<1)
-            return false;
-        else
-            return true;
-    }  
-}
+
 /*
 解题思路：要求最优解=>考虑BFS算法，广度优先
 1,用目标楼层减现在楼层，得出要上还是下
