@@ -1,3 +1,4 @@
+//Work By:优先队列：poj1521
 #include<bits/stdc++.h>
 using namespace std;
 int main()
