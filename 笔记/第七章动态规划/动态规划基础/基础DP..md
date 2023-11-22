@@ -2,6 +2,10 @@
     简单解释：多阶段决策问题，将一个复杂的问题分解成相对简单的子问题，
     这些子问题前后相关，非常相似，处理方法几乎一样。
     将前问题的计算结果记录为“状态”，存储在“状态表”当中，后面的子问题查询状态表得知前面问题的答案，减少复杂度
+## 一般思路：
+    1，穷举法、暴力搜索穷举答案，画出递归树，尝试采用递归来进行求解
+    2，如果发现存在大量的重复计算，记忆化搜索（哈希表缓存），遍历到相同的节点就直接查表
+    3, 将计算的过程表示出来，观察计算的公式求解的顺序 ，尝试将递归形成改写成迭代形式（例如：两个for循环） 
 ## 区别于分治法：
     DP之间的问题是相关的，前面问题的解决结果可以被后面的子问题利用
 ## 适用：
@@ -22,4 +26,75 @@
         2，叶->根，根的子节点传递有用的信息给根，最后根得最优解
 # 基础dp:
 ## 7.1.1硬币问题：
-    
+### 最少硬币个数问题
+```c++
+#include<bits/stdc++.h>
+using namespace std;
+//最少硬币问题
+const int MONEY=251;//最多金额
+const int VALUE=5;//5种面值
+int type[VALUE]={1,5,10,25,50};
+int Min[MONEY];//每个金额对应的最少的硬币数量
+void solve()
+{
+    for(int k=0;k<MONEY;k++)
+        Min[k]=INT_MAX;
+    Min[0]=0;
+    for(int j=0;j<VALUE;j++)
+        for(int i=type[j];i<MONEY;i++)
+            Min[i]=min(Min[i],Min[i-type[j]]+1);
+}//不断“优化”最优解，1个，5个，10个，25个...
+int main()//打表的思路
+{
+    int s;
+    solve();
+    while(cin>>s)
+    {
+        cout<<Min[s]<<endl;
+    }
+    return 0;
+}
+```
+### 打印最少硬币的组合：   
+```c++
+#include<bits/stdc++.h>
+using namespace std;
+//打印最少硬币的组合：要增加一个记录表Min_path[i]记录金额i所需的最后一个硬币，利用这个数组倒推就能得到所有的硬币
+
+const int MONEY=251;//最多金额
+const int VALUE=5;//5种面值
+int type[VALUE]={1,5,10,25,50};
+int Min[MONEY];//每个金额对应的最少的硬币数量
+int Min_path[MONEY]={0};//记录最小硬币的路径
+void solve()
+{
+    for(int k=0;k<MONEY;k++)
+        Min[k]=INT_MAX;
+    Min[0]=0;
+    for(int j=0;j<VALUE;j++)
+        for(int i=type[j];i<MONEY;i++)
+            if(Min[i]>Min[i-type[j]]+1)
+            {
+                Min_path[i]=type[i];//在每个金额上记录路径，即某个硬币的面值
+                Min[i]=min(Min[i],Min[i-type[j]]+1);
+            }
+}//不断“优化”最优解，1个，5个，10个，25个...
+void print_ans(int *Min_path,int s )
+{
+    while(s)
+    {
+        cout<<Min_path[s]<<" ";
+        s=s-Min_path[s];
+    }
+}
+int main()//打表的思路
+{
+    int s;
+    solve();
+    while(cin>>s)
+    {
+        cout<<Min[s]<<endl;
+    }
+    return 0;
+}
+``` 
