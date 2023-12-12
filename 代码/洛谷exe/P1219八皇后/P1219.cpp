@@ -43,8 +43,6 @@ void search(int r)//深度优先搜索,参数ri表示在第几行
                 search(r+1);
             }
         }
-        
-
     }
 
 }
