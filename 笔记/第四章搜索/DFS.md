@@ -114,8 +114,127 @@ int main()
         cout<<depth<<endl;
     }
 }
+```
+例题：单词输出：
+```C++
+#include <iostream>
+#include <algorithm>
+using namespace std;
+// P1101单词方阵
+char word[] = {'y', 'i', 'z', 'h', 'o', 'n', 'g'};
+char mat[103][103];
+char ansmat[103][103];
+int n;
+void dfs(int dr, int dc, int r, int c, int cut);
+int main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+    cin >> n;
+    for (int i = 1; i <= n; i++)
+    {
+        for (int k = 1; k <= n; k++)
+        {
+            cin >> mat[i][k];
+            ansmat[i][k] = 0;
+        }
+    }
+    for (int i = 1; i <= n; i++)
+    {
+        for (int k = 1; k <= n; k++)
+        {
+            if (mat[i][k] == 'y')
+            {
+                // 这里是起点了哇
+                for (int dr = -1; dr <= 1; dr++)
+                {
+                    for (int dc = -1; dc <= 1; dc++)
+                    {
+                        if (mat[i + dr][k + dc] == 'i')
+                        {
+                            dfs(dr, dc, i, k, 0); // 方向，搜索
+                        }
+                    }
+                }
+            }
+        }
+    }
+    for (int i = 1; i <= n; i++)
+    {
+        for (int k = 1; k <= n; k++)
+        {
+            if (ansmat[i][k])
+            {
+                cout << mat[i][k];
+            }
+            else
+            {
+                cout << "*";
+            }
+        }
+        cout << endl;
+    }
+}
+// dr,dc是方向，r，c代表第一个字母'r'的坐标位置
+void dfs(int dr, int dc, int r, int c, int cut)
+{
+    if (cut == 7)
+    {
+        for (int i = 1; i <= 7; i++)
+        {
+            ansmat[r - dr * i][c - dc * i] = 1; // 标记为保留
+        }
+    }
+    if (r >= 1 && r <= n && c >= 1 && c <= n && mat[r][c] == word[cut])
+    {
+        dfs(dr, dc, r + dr, c + dc, cut + 1);
+    }
+    return;
+}
 
+```
+例题：自然数的拆分：
+```c++
+#include <cstdio>
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+int a[10001] = {1}, n;
+////用于存储拆分 n 的数的序列。初始值为 1，因为 a[0] 是用于开始拆分的初始值。
 
+void search(int, int);
+void print(int);
+int main()
+{
+    cin >> n;
+    search(n, 1); // 将要拆分的数n传递给s
+    return 0;
+}
+void printff(int t)
+{
+    for (int i = 1; i <= t - 1; i++) // 输出一种拆分方案  [9934] 0 int
+
+        cout << a[i] << "+";
+    // if(a[t]!=t)
+    cout << a[t] << endl;
+}
+
+void search(int s, int t) // s是要拆分的数值，t是要拆分的位数
+{
+    int i;
+    for (i = a[t - 1]; i <= s; i++)
+        if (i < n) // 当前数i要大于等于前一位数，且不超过n
+        {
+            a[t] = i; // 保存当前拆分的数i
+            s -= i;   // s减去数i，s的值将继续拆分
+            if (s == 0)
+                printff(t); // 当s=0时，拆分结束输出结果
+            else
+                search(s, t + 1); // 当s>0时，继续递归
+            s += i;               // 回溯，加上拆分的数(回复s开始的值)，使得产生所有可能的拆分
+        }
+}
 ```
 
 ## 总结BFS，DFS
