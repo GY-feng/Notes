@@ -1,7 +1,7 @@
 #BFS
 # 棋盘问题
+学习点：1,二维数组表示上下左右方向2,
 ```c++
-
 #include<bits/stdc++.h>
 using namespace std;
 int Wx,Wy,num;//表示有Wx行，Wy列;用num统计可走的位置有多少

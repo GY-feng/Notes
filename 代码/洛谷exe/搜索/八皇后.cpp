@@ -1,68 +1,61 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
 using namespace std;
-int n;
-int mat[15][15];
-vector<vector<int>> groups;
-int total;
-int main()
+#define MAX_N 100
+/*
+学习：占位和退位的思想，对角线的表示形式
+*/
+int a[MAX_N], n, ans = 0;
+int b1[MAX_N], b2[MAX_N], b3[MAX_N]; // 分别记录y,x+y,x-y+15是否被占用
+/*
+b2数组（对角线）：
+(左下与右上的线）
+b2[x + i] 表示第 x 行和第 i 列的对角线是否被占用。
+对于每一个皇后，它的位置是 (x, i)，那么它所在的对角线编号为 x + i。
+如果 b2[x + i] 的值为 1，说明在这个对角线上已经有皇后存在。
+b3数组（反对角线）：
+
+b3:(左上与右下的线）
+b3[x - i + 15] 表示第 x 行和第 i 列的反对角线是否被占用。
+对于每一个皇后，它的位置是 (x, i)，那么它所在的反对角线编号为 x - i + 15。
+加上常数 15 是为了保证数组的索引不会出现负数。
+如果 b3[x - i + 15] 的值为 1，说明在这个反对角线上已经有皇后存在。
+*/
+void dfs(int x)
 {
-    cin>>n;
-}
-bool check(int x,int y)
-{
-    if(x>n||y>n)
-        return false;
-    if()
-}
-void dfs(int r)
-{
-    if(r==n)
+    if (x > n)
     {
-        total++;
+        ans++;
+        if (ans <= 3)
+        {
+            for (int i = 1; i <= n; i++)
+            {
+                cout << a[i] << " ";
+            }
+            cout << endl;
+        }
         return;
     }
-else
-{
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i <= n; i++) // 模拟列的情况
     {
-        if(check(r,i))//第r行
+        // b1记录第i排竖排是否被占用
+        // b2
+        if (b1[i] == 0 && b2[x + i] == 0 && b3[x - i + 15] == 0)
         {
-            mat[r]=i;//r行c列放皇后
-            dfs(r+1);
+            a[x] = i; // 记录展位的地方
+            b1[i] = 1;
+            b2[x + i] = 1;
+            b3[x - i + 15] = 1; // 占位
+            dfs(x + 1);
+            b1[i] = 0;
+            b2[x + i] = 0;
+            b3[x - i + 15] = 0; // 取消占位
         }
     }
-    
 }
+int main()
+{
+    cin >> n;
+    dfs(1);
+    cout << ans;
 }
-/*
-模板：
-```c++
-这里还有两个普通的深搜模板
-深度优先搜索算法框架1
-int Search(int k)
-　{
-　for (i=1;i<=算符种数;i++)
-　　if (满足条件)
-　　   {
-　　　　保存结果
-　　　　if (到目的地) 输出解;
-　　　           else Search(k+1);
-　　　　恢复：保存结果之前的状态{回溯一步}
-　 　  }
-　}
- 深度优先搜索算法框架2
-int Search(int k)
-　{
-　  if  (到目的地) 输出解;
-　　　else
-　　　　for (i=1;i<=算符种数;i++)
-　　　　　if  (满足条件) 
-　　　　　　　{
-　　　　　　　　保存结果;
-　　　                  Search(k+1)
-                             恢复：保存结果之前的状态{回溯一步}
-　　　　　　　}
-　}
- 希望各位都能顺利学会DFS，也希望管理大大能通过此篇题解！
-```
-*/
