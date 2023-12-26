@@ -29,7 +29,9 @@ void find()
                 {
                     if(g>=i&&h>=k)
                     {
-                   int ans=sum[][y2]-sum[x1-1][y2]-sum[x2][y1-1]+sum[x1-1][y1-1]
+                       int ans=sum[g][h]-sum[i-1][h]-sum[g][k-1]+sum[x1-1][y1-1]
+                         //i是x1,k是y1,g是x2,h是y2 
+                        //ans=s[x2][y2]-s[x1-1][y2]-s[x2][y1-1]+s[x1-1][y1-1]
 
                     }
                 }
