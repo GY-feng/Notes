@@ -1,46 +1,39 @@
 #include<bits/stdc++.h>
 using namespace std;
-const int MONEY=251;//定义最大金额
-int type[5]={1,5,10,25,50};//5种面值
-int dp[MONEY]={0};
-//在假设所有的硬币都有无限个的情况下：
+const int COIN=101;//硬币的最大个数
+const int MONEY=251;//最大金额
+int dp[MONEY][COIN]={0};
+int type[5]={1,5,10,20,50};
 void solve()
 {
-    dp[0]=1;
-    for(int i=0;i<5;i++)
+    dp[0][0] = 1;
+    for (int i = 0; i < 5; i++)//枚举5种硬币
     {
-        for(int j=type[i];j<MONEY;j++)
-            dp[j]=dp[j]+dp[j-type[i]];
-            /*
-            找dp[i]与dp[i-1]之间的递推关系
-            开始只用1分硬币推导，后面用更大的面值一步步加上之前推导的结果
-            dp[i]=dp[i]+dp[i-1]//这里的1为1元的意思
-            i>=5时，金额s的数量=从s当中减去5的组合
-            再继续处理10，25，50的情况
-            */
-    }
-}
-const int coin=101;
-int dp2[MONEY][coin]={0};
-//硬币只有100个=>建立状态转移矩阵，横向是金额，纵向是硬币数
-void Solve2()
-{
-    dp2[0][0]=1;
-    for (int i = 0; i < 5; i++)
-    {
-        for (int j = 1; j < coin; j++)
+        for (int j = 1; j<COIN;j++)//硬币的个数没有达到上限,这里从1个硬币开始枚举
         {
             for (int k = type[i]; k < MONEY; k++)
             {
-                dp2[k][j]+=dp2[k-type[i]][j-1];
+                dp[k][j]+=dp[k-type[i]][j-1];//转移矩阵+=dp[待求金额-面值][硬币个数-1]；
             }
             
         }
-        
     }
-       
 }
 int main()
 {
-
+    int s;
+    int ans[MONEY]={0};
+    solve();//计算状态转移矩阵
+    for(int i=0;i<MONEY;i++)
+    {
+        for (int j = 0; j < COIN; j++)//打表计算每个金额有多少种组合方案
+        {
+            ans[i]+=dp[i][j];//从0开始计算
+        }
+        while(cin>>s)
+        {
+            cout<<ans[s]<<endl;
+        }
+        
+    }
 }
