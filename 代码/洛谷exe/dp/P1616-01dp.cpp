@@ -6,7 +6,7 @@ struct medicine
     int time;
     int value;
 }med[10011];
-int dp[10011][10000009];
+int dp[10011][100000001];
 //dp[i][j]表示将前i个物品装入容量为j的背包中所能获得的最大价值
 int solve()
 {
