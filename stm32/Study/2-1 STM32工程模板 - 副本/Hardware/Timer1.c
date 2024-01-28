@@ -56,7 +56,7 @@ void Timer_init()
   i.TIM_Prescaler=7200-1;//PSC
   i.TIM_RepetitionCounter=0;//重复计数器，高级才有
   TIM_TimeBaseInit(TIM2,&i);
-  
+
   TIM_ClearFlag(TIM2,TIM_FLAG_Update);//避免上电就进入中断
   //4，配置中断输出控制
   TIM_ITConfig(TIM2,TIM_IT_Update,ENABLE);//更新中断
@@ -75,15 +75,15 @@ void Timer_init()
 void Timer_init_By_outsideclock()//使用外部时钟而不是内部时钟
 {
   //引脚要用到GPIO，所以要先配置GPIO
-	RCC_APB2PeriphClockCmd(RCC_APB 2Periph_GPIOA,ENABLE);
-	GPIO_InitTypeDef GPIO_InitStructure;//配置端口模式
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;//上拉输入
-	GPIO_InitStructure.GPIO_Pin =GPIO_Pin_0;
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_Init(GPIOA, &GPIO_InitStructure);
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA,ENABLE);
+  GPIO_InitTypeDef GPIO_InitStructure;//配置端口模式
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;//上拉输入
+  GPIO_InitStructure.GPIO_Pin =GPIO_Pin_0;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
   //1开启时钟
   RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2,ENABLE);
-	  //2，选择时基单元的时钟
+  //2，选择时基单元的时钟
   TIM_ETRClockMode2Config(TIM2,TIM_ExtTRGPSC_OFF,TIM_ExtTRGPolarity_NonInverted,0x00);//不适用分频，不反向（高电平有效）,不使用滤波器）
 
   //TIM_InternalClockConfig(TIM2);//选择内部时钟（也是系统默认）
@@ -98,7 +98,7 @@ void Timer_init_By_outsideclock()//使用外部时钟而不是内部时钟
   i.TIM_Prescaler=1-1;//PSC
   i.TIM_RepetitionCounter=0;//重复计数器，高级才有
   TIM_TimeBaseInit(TIM2,&i);
-  
+
   TIM_ClearFlag(TIM2,TIM_FLAG_Update);//避免上电就进入中断
   //4，配置中断输出控制
   TIM_ITConfig(TIM2,TIM_IT_Update,ENABLE);//更新中断
@@ -116,10 +116,10 @@ void Timer_init_By_outsideclock()//使用外部时钟而不是内部时钟
 //可以将中断函数放到主程序当中进行使用
 void TIM2_IRQHandler(void)
 {
-	if(TIM_GetITStatus(TIM2,TIM_IT_Update)==SET)//参数：选择更新中断
-	{
-	
-		TIM_ClearITPendingBit(TIM2,TIM_IT_Update);
-		//在变量前面加上extern，可以跨越.c使用变量
-	}
+  if(TIM_GetITStatus(TIM2,TIM_IT_Update)==SET)//参数：选择更新中断
+    {
+
+      TIM_ClearITPendingBit(TIM2,TIM_IT_Update);
+      //在变量前面加上extern，可以跨越.c使用变量
+    }
 }

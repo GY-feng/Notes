@@ -30,6 +30,8 @@
 ".\objects\led.o"
 ".\objects\buzzer.o"
 ".\objects\interrupt.o"
+".\objects\timer1.o"
+".\objects\timer2-pwm.o"
 ".\objects\main.o"
 ".\objects\stm32f10x_it.o"
 --strict --scatter ".\Objects\Project.sct"
