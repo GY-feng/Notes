@@ -705,6 +705,16 @@
               <FileType>5</FileType>
               <FilePath>.\Hardware\Interrupt.h</FilePath>
             </File>
+            <File>
+              <FileName>Timer1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\Timer1.c</FilePath>
+            </File>
+            <File>
+              <FileName>Timer1.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\Timer1.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
