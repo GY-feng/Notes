@@ -22,6 +22,7 @@ int main()
             cout<<num[b]<<endl;
         }
     }
+    cin>>n;
 }
 void init()
 {
