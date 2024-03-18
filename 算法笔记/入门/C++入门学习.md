@@ -1,6 +1,6 @@
 # C++学习：
 ## 主函数：
-    除了int main()以外也可以写成signed main()或者int32 main()是一样的意思，一方如果需要把全文的int替换成long long
+除了int main()以外也可以写成signed main()或者int32 main()是一样的意思，一方如果需要把全文的int替换成long long
 ## 输入输出流：
 cin>>变量名，这个表达式本身会返回一个布尔值，表示当前是否读到了EOF，为false则表示遇到了EOF
 ```c++
