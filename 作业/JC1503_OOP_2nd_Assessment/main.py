@@ -69,58 +69,39 @@ class Scheduler:
         return self.__queue.remove_task()
 
     def reorder_task(self,task,newp,newdeadline):
-        if task in self.__queue:
-            t=self.__queue.get_tasks()
-            t.remove(task)
+        if task in self.__queue.get_tasks():
+            self.__queue.get_tasks().remove(task)
             task.set_priority(newp)
             task.set_deadline(newdeadline)
             self.add_task(task)
 
 
+            #t=self.__queue.get_tasks()
+            ## t.remove(task)
 
+            #task.set_priority(newp)
+            #task.set_deadline(newdeadline)
+            #elf.add_task(task)
 
     def execute_task(self):
-        t=self.__queue.remove_task()
+        t = self.__queue.remove_task()
         if t:
-            print(t)
+            print(f"Executing task: {t}")
         else:
             print("No tasks to execute")
 
-        pass
-
     def display_tasks(self):
-        t=self.__queue.get_tasks()
-        if t:
-            for i in t:
-                print("Current tasks:",i)
+        tasks = self.__queue.get_tasks()
+        if tasks:
+            print("Current tasks:")
+            for i, task in enumerate(tasks):
+                if i > 0:
+                    print()  # Print a newline before the task if it's not the first task.
+                print(task, end="")  # Use end="" to avoid printing an extra newline after each task.
         else:
             print("No tasks")
-        pass
-
-
 
 def main():
-    s=Scheduler()
-
-    t1=Task(description="Finish project",priority=3,deadline=datetime(2023, 5, 1))
-    t2=Task(description="Exam revision",priority=2,deadline=datetime(2023, 7, 1))
-    t3=Task(description="Buy groceries",priority=1,deadline=None)
-
-    s.add_task(t1)
-    s.add_task(t2)
-    s.add_task(t3)
-
-    s.display_tasks()
-
-    s.execute_task()
-    s.display_tasks()
-
-    s.reorder_task(t3,4,datetime(2023,5,10))
-    s.display_tasks()
-
-    s.execute_task()
-    s.execute_task()
-
     pass
 
 if __name__ == '__main__':
