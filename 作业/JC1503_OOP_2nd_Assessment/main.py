@@ -94,8 +94,8 @@ class Scheduler:
             print("Current tasks:")
             for i, task in enumerate(tasks):
                 if i > 0:
-                    print()  # Print a newline before the task if it's not the first task.
-                print(task, end="")  # Use end="" to avoid printing an extra newline after each task.
+                    print()
+                print(task, end="")
         else:
             print("No tasks")
 
