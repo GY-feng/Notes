@@ -13,8 +13,6 @@ class Task:
         return self.__description
     def set_description(self,stri):
         self.__description=stri
-    
-
     def get_priority(self):
         return self.__priority
 
