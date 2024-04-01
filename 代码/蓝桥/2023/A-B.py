@@ -45,5 +45,7 @@ def Problem_A():
         if a+b+c+d==e+f+g+h:
             num+=1
     return num
+def Pro_B():
+    
 print(Problem_A())
 
