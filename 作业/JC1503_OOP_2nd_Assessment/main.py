@@ -72,8 +72,6 @@ class Scheduler:
             task.set_priority(newp)
             task.set_deadline(newdeadline)
             self.add_task(task)
-
-
             #t=self.__queue.get_tasks()
             ## t.remove(task)
 
@@ -100,6 +98,28 @@ class Scheduler:
             print("No tasks")
 
 def main():
+    s = Scheduler()
+
+    t1 = Task(description="Finish project", priority=3, deadline=datetime(2023, 5, 1))
+    t2 = Task(description="Exam revision", priority=2, deadline=datetime(2023, 7, 1))
+    t3 = Task(description="Buy groceries", priority=1, deadline=None)
+
+    s.add_task(t1)
+    s.add_task(t2)
+    s.add_task(t3)
+
+    s.display_tasks()
+    print()
+
+    s.execute_task()
+    s.display_tasks()
+    print()
+    s.reorder_task(t3, 4, datetime(2023, 5, 10))
+    s.display_tasks()
+    print()
+    s.execute_task()
+
+    s.execute_task()
     pass
 
 if __name__ == '__main__':

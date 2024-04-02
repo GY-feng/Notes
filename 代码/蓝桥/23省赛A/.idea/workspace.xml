@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bfad0616-17ba-4549-b0f3-7cbdfa208f47" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/9-平均.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../作业/JC1503_OOP_2nd_Assessment/.idea/JC1503_OOP_2nd_Assessment.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../作业/JC1503_OOP_2nd_Assessment/.idea/JC1503_OOP_2nd_Assessment.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../作业/JC1503_OOP_2nd_Assessment/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../作业/JC1503_OOP_2nd_Assessment/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../作业/JC1503_OOP_2nd_Assessment/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../../作业/JC1503_OOP_2nd_Assessment/main.py" afterDir="false" />
-    </list>
+    <list default="true" id="bfad0616-17ba-4549-b0f3-7cbdfa208f47" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,9 +20,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2eV700sHfJOYdmrlsNuCu8FMefV" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -39,7 +34,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "E:/github/Notes/代码/蓝桥/23省赛A"
+    "last_opened_file_path": "E:/github/Notes/作业/JC1503_OOP_2nd_Assessment"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
