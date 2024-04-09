@@ -5,11 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bfad0616-17ba-4549-b0f3-7cbdfa208f47" name="Changes" comment="">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.idea/23省赛A.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/23省赛A.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/2-分糖果.py" beforeDir="false" afterPath="$PROJECT_DIR$/2-分糖果.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../作业/JC1503_OOP_2nd_Assessment/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../作业/JC1503_OOP_2nd_Assessment/.idea/workspace.xml" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/4-翻转(优化前-字符串).py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/4-翻转（优化后-列表）.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/6-子树的大小.py" beforeDir="false" afterPath="$PROJECT_DIR$/6-子树的大小.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/9-平均.py" beforeDir="false" afterPath="$PROJECT_DIR$/9-平均.py" afterDir="false" />
+>>>>>>> cd8af773665b002d4d7189d0d797d54f34c06c58
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,10 +38,14 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2eV700sHfJOYdmrlsNuCu8FMefV" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -42,18 +54,40 @@
   </component>
   <component name="RunManager">
     <configuration name="Python37_64" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+=======
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/feng/Desktop/作业/JC1503_OOP_2nd_Assessment&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="4-翻转" type="PythonConfigurationType" factoryName="Python">
+>>>>>>> cd8af773665b002d4d7189d0d797d54f34c06c58
       <module name="23省赛A" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
+<<<<<<< HEAD
       <option name="SDK_HOME" value="D:\pypractice\pytorch\venv\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="C:/Program Files (x86)/Microsoft Visual Studio/Shared" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="C:/Program Files (x86)/Microsoft Visual Studio/Shared/Python37_64" />
+=======
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="E:\github\Notes\代码\蓝桥\23省赛A\4-翻转(优化前-字符串).py" />
+>>>>>>> cd8af773665b002d4d7189d0d797d54f34c06c58
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
