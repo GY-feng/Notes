@@ -16,5 +16,3 @@ for i in s:
     pass
 print(str_l)
 
-
-
