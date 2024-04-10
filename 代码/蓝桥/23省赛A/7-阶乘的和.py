@@ -1,23 +1,29 @@
+from collections import defaultdict as d
+
 n = int(input())
 nums = list(map(int, input().split()))
+m=d(int)
 
-# 计算阶乘并存储在字典中
-factorials = {0: 1, 1: 1, 2: 2, 3: 6}
+nn=[0]*100000
+nn[1]=1
+nn[2]=2
+nn[3]=6
 def jiecheng(a):
-    if a in factorials:
-        return factorials[a]
+    if nn[a]:
+        return nn[a]
     else:
-        result = jiecheng(a - 1) * a
-        factorials[a] = result
-        return result
+        nn[a]=jiecheng(a-1)*a
+        return nn[a]
 
-# 计算总和
-total_sum = sum(jiecheng(num) for num in nums)
+# 将nums的值添加进m当中：
+for i in nums:
+    m[i]+=1
+    pass
+co=[]
+# 尝试合并n+1个 n! 为(n+1)!
+for i in m: #这里的i就是key了
+    if m[i]==i+1:#value=key+1,有n+1个n可以合并
+        co.append(jiecheng((m[i]+1)))
 
-# 寻找满足条件的值
-for i in range(total_sum, 0, -1):
-    m_jiecheng = jiecheng(i)
-    if total_sum % m_jiecheng == 0:  # 如果m的阶乘是sum的因数的话
-        print(i)
-        break
+print(co)
 
