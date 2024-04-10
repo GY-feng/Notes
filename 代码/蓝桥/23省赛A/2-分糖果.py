@@ -3,7 +3,7 @@ import sys
 n,x=map(int,input().split())
 s=input()
 s=sorted(s)
-<<<<<<< HEAD
+
 str_l=[""]*x
 init=0
 for i in s:
@@ -17,9 +17,6 @@ for i in s:
     pass
 print(str_l)
 
-
-=======
-
 if s[x-1]!=s[0]:# 分配给最后一人的糖果价值>第一人的价值
     print(s[x-1])
     pass
@@ -31,5 +28,4 @@ else:# 每个人拿到的开始的相同
     else:
         for i in s[x-1:]:# s的第x个元素开始，迭代到列表末尾
             print(i,end='') # end=''输出完i后不换行
->>>>>>> cd8af773665b002d4d7189d0d797d54f34c06c58
 
