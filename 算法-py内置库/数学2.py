@@ -12,3 +12,4 @@ def iszhi(n):
             return 0
         i+=6
     return 1
+
