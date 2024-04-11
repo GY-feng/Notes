@@ -12,4 +12,25 @@ def iszhi(n):
             return 0
         i+=6
     return 1
+# 求逆元：
+def mod_inverse(a, m):
+    return pow(a, -1, m)
+
+# 示例用法
+a = 5
+m = 11
+inverse = mod_inverse(a, m)
+print(f"The multiplicative inverse of {a} modulo {m} is: {inverse}")
+
+# 全排列：
+from itertools import permutations
+
+# 定义列表
+my_list = [1, 2, 3]
+# 获取全排列
+permutations_list = list(permutations(my_list))
+# 打印结果
+print("全排列列表：", permutations_list)
+
+
 
