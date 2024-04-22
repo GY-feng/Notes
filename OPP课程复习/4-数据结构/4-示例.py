@@ -13,7 +13,7 @@ class DoublyLinkedList:
 
     def add_first(self, data):
         new_node = Node(data)
-        if not self.head:
+        if not self.head: #如果链表为空的时候
             self.head = new_node
             self.tail = new_node
         else:
