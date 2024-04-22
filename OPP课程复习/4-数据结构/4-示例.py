@@ -31,7 +31,7 @@ class DoublyLinkedList:
                 self.head = None
                 self.tail = None
             return removed_data
-        else:
+        else: mn                                                              
             return None
 
     def add_last(self, data):
