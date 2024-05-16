@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="854a763a-f0ef-4ca2-a95c-52bd9c90538a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/4-数据结构/img_6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4-数据结构/img_7.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/4-数据结构/4-数据结构.md" beforeDir="false" afterPath="$PROJECT_DIR$/4-数据结构/4-数据结构.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/4-数据结构/4-示例.py" beforeDir="false" afterPath="$PROJECT_DIR$/4-数据结构/4-示例.py" afterDir="false" />
-    </list>
+    <list default="true" id="854a763a-f0ef-4ca2-a95c-52bd9c90538a" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
