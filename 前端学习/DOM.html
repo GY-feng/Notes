@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="box1">id标签</div>
+    <div class="box2"></div>
+    <div>普通div</div>
+    <button id='but1'>点击就送</button>
+
+    <script>
+        var a = document.getElementById("box1");
+
+        /*这两个方法得到的都是数组，要用索引获取指定的值*/
+        var b = document.getElementsByClassName("box2");
+        var c = document.getElementsByTagName("div");
+
+        console.log(a);
+        console.log(b[0]);
+        console.log(c[5]);
+
+        a.innerHTML = '<a href="#">可以改成超链接吗？</a>';
+        b[0].innerText = '<a href="#">可以改成超链接吗？</a>';
+
+        a.style.color = 'red';
+        a.style.fontSize = '20px';
+
+        //DOM触发事件
+        var button_ele = document.getElementById('but1');
+        button_ele.onclick = function () {
+            alert("DOM属性触发啦");
+        }
+        //addeventlistener触发事件
+        button_ele.addEventListener('click', function () {
+            alert("通过addeventlistener触发事件");
+        })
+    </script>
+</body>
+
+</html>
