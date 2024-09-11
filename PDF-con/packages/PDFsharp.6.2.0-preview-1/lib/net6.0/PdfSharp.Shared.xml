@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PdfSharp.Shared</name>
+    </assembly>
+    <members>
+        <member name="T:PdfSharp.Diagnostics.NRT">
+            <summary>
+            Helper class for code migration to nullable reference types.
+            </summary>
+        </member>
+        <member name="M:PdfSharp.Diagnostics.NRT.ThrowOnNull(System.String)">
+            <summary>
+            Throws an InvalidOperationException because an expression which must not be null is null.
+            </summary>
+            <param name="message">The message.</param>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:PdfSharp.Diagnostics.NRT.ThrowOnNull``1(System.String)">
+            <summary>
+            Throws InvalidOperationException. Use this function during the transition from older C# code
+            to new code that uses nullable reference types.
+            </summary>
+            <typeparam name="TResult">The type this function must return to be compiled correctly.</typeparam>
+            <param name="message">An optional message used for the exception.</param>
+            <returns>Nothing, always throws.</returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:PdfSharp.Diagnostics.NRT.ThrowOnNull``2(System.String)">
+            <summary>
+            Throws InvalidOperationException. Use this function during the transition from older C# code
+            to new code that uses nullable reference types.
+            </summary>
+            <typeparam name="TResult">The type this function must return to be compiled correctly.</typeparam>
+            <typeparam name="TType">The type of the object that is null.</typeparam>
+            <param name="message">An optional message used for the exception.</param>
+            <returns>Nothing, always throws.</returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="T:PdfSharp.Internal.SyMsgId">
+            <summary>
+            System message ID.
+            </summary>
+        </member>
+        <member name="T:PdfSharp.Internal.MessageIdOffset">
+            <summary>
+            Offsets to ensure that all message IDs are pairwise distinct
+            within PDFsharp foundation.
+            </summary>
+        </member>
+        <member name="T:PdfSharp.Internal.SyMsg">
+            <summary>
+            (PDFsharp) System message.
+            </summary>
+        </member>
+        <member name="M:PdfSharp.Internal.SyMsg.#ctor(PdfSharp.Internal.SyMsgId,System.String)">
+            <summary>
+            (PDFsharp) System message.
+            </summary>
+        </member>
+        <member name="T:PdfSharp.Internal.SyMsgs">
+            <summary>
+            (PDFsharp) System message.
+            </summary>
+        </member>
+        <member name="T:PdfSharp.Internal.TH2">
+            <summary>
+            Experimental throw helper.
+            </summary>
+        </member>
+        <member name="T:PdfSharp.Internal.UrlLiterals">
+            <summary>
+            URLs used in PDFsharp are maintained only here.
+            </summary>
+        </member>
+        <member name="F:PdfSharp.Internal.UrlLiterals.LinkToAssetsDoc">
+            <summary>
+            URL for missing assets error message.
+            "https://docs.pdfsharp.net/link/download-assets.html"
+            </summary>
+        </member>
+        <member name="F:PdfSharp.Internal.UrlLiterals.LinkToFontResolving">
+            <summary>
+            URL for missing font resolver.
+            "https://docs.pdfsharp.net/link/font-resolving.html"
+            </summary>
+        </member>
+    </members>
+</doc>
