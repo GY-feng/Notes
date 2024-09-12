@@ -170,11 +170,50 @@ o.visualization.draw_geometries([downpcd])
 优点：有效去除孤立的噪声点。
 缺点：可能导致局部稀疏区域的有效点被误删。
 应用：适用于去除点云中的随机噪声，如由传感器引入的离群点或错误点。
+![alt text](image-7.png)
+```py
+# 统计滤波
+num_neighbors=20#邻域点的个数
+std_ratio=2.0#标准差乘数 表示滤波时的标准差乘数。统计滤波会计算每个点到其邻域的平均距离，并计算这些距离的标准差。
+# 如果某个点的距离超过平均距离加上 std_ratio 倍的标准差，那么该点会被认为是噪声点。
+
+
+#执行统计滤波，返回滤波后的点云sor_ocd和对应的索引ind_
+sor_pcd,ind=pcd.remove_statistical_outlier(num_neighbors, std_ratio)
+sor_pcd.paint_uniform_color([0, 0, 1])
+
+#提取噪声点云：
+sor_noise_pcd=pcd.select_by_index(ind,invert=True)# 通过 select_by_index 方法提取噪声点云。invert=True 表示选择没有被保留下来的噪声点。
+sor_noise_pcd.paint_uniform_color([1, 0, 0])
+
+o.visualization.draw_geometries([sor_pcd,sor_noise_pcd],window_name="统计滤波")
+```
+
 ### 2.3 半径滤波（Radius Outlier Removal）
 原理：对于每个点，半径滤波计算在给定的半径范围内有多少个邻居点。如果邻居点的数量少于某个阈值，则该点被认为是离群点并移除。
 优点：通过控制邻居的距离，可以移除稀疏的噪声点。
 缺点：需要手动调整半径大小，且计算量较大。
 应用：适用于点云较稀疏或分布不均匀的情况。
+![alt text](image-6.png)
+```py
+# 半径滤波：
+num_points=20# 邻域球内的最少点数，低于这个值的为噪声点 半径滤波时，球内至少要有 20 个邻域点。如果少于这个数量，则认为该点是噪声点。
+radius=0.05# 邻域半径大小 邻域球的半径为 0.05。如果在这个球内的点数小于 num_points，该点被视为噪声。
+
+#执行半径滤波
+sor_pcd_r,ind_r=pcd.remove_radius_outlier(num_points, radius)
+sor_pcd_r.paint_uniform_color([0, 0, 1])
+
+#　提取噪声点云：
+sor_noise_pcd_r=pcd.select_by_index(ind_r,invert=True)
+sor_noise_pcd_r.paint_uniform_color([1, 0, 0])
+
+o.visualization.draw_geometries([sor_pcd_r,sor_noise_pcd_r],window_name="半径滤波")
+```
+
+![alt text](image-8.png)
+
+
 ### 2.4 均值平滑滤波（Moving Least Squares, MLS）
 原理：均值平滑滤波通过在局部区域内进行拟合，来平滑点云的表面。通常是通过拟合局部平面或曲面来估计每个点的新位置，从而使点云更加连续和平滑。
 优点：可以消除噪声并保持表面几何特征。
