@@ -3155,6 +3155,157 @@ o.visualization.draw_geometries([sor_pcd_r,sor_noise_pcd_r],window_name=<span cl
 特征保留：在滤波过程中，过度平滑或下采样可能导致几何特征的丢失，如何在去噪与保留细节之间找到平衡是个挑战。</p>
 <h2 id="总结">总结</h2>
 <p>点云滤波是点云数据处理中的一个关键步骤，它能够去除噪声、减少冗余并增强几何特征。根据应用的不同场景，有多种滤波方法可供选择，包括体素栅格滤波、统计滤波、平滑滤波等。选择合适的滤波方法和参数对最终结果的质量至关重要。</p>
+<h1 id="点云特征提取">点云特征提取：</h1>
+<p>##　法线估计：</p>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> open3d <span class="hljs-keyword">as</span> o
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+pcd = o.io.read_point_cloud(<span class="hljs-string">&quot;test.pcd&quot;</span>)  <span class="hljs-comment"># type:o.geometry.PointCloud</span>
+
+<span class="hljs-comment"># 法线估计</span>
+r=<span class="hljs-number">0.01</span><span class="hljs-comment"># 搜索半径</span>
+max_nn=<span class="hljs-number">30</span><span class="hljs-comment"># 邻域内估算法线的最大点数</span>
+pcd.estimate_normals(search_param=o.geometry.KDTreeSearchParamHybrid(r,max_nn))<span class="hljs-comment"># 执行法线估计</span>
+
+o.visualization.draw_geometries([pcd],point_show_normal=<span class="hljs-literal">True</span>)
+<span class="hljs-built_in">print</span>(np.asarray(pcd.normals)[:<span class="hljs-number">10</span>,:])<span class="hljs-comment"># 打印前10个点的法向量</span>
+</code></pre>
+<h1 id="点云分割">点云分割</h1>
+<p><img src="file:///e:\github\Notes\点云无人机学习\learn\image-9.png" alt="alt text"></p>
+<pre><code class="language-py"><span class="hljs-keyword">import</span> open3d <span class="hljs-keyword">as</span> o
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+
+pcd = o.io.read_point_cloud(<span class="hljs-string">&quot;test.pcd&quot;</span>) <span class="hljs-comment"># type:o.geometry.PointCloud</span>
+
+
+<span class="hljs-comment">#DBSCAN聚类分割</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;正在聚类&quot;</span>)
+eps=<span class="hljs-number">0.5</span> <span class="hljs-comment">#同一聚类当中的最大点间距 DBSCAN聚类中两个点可以被认为属于同一个簇的最大距离</span>
+min_points=<span class="hljs-number">50</span> <span class="hljs-comment"># 一个簇至少需要的点数，DBSCAN算法会把这些点视为有效的簇</span>
+<span class="hljs-keyword">with</span> o.utility.VerbosityContextManager(o.utility.VerbosityLevel.Debug) <span class="hljs-keyword">as</span> cm:
+    labels = np.array(pcd.cluster_dbscan(eps, min_points, print_progress=<span class="hljs-literal">True</span>))
+    <span class="hljs-comment"># 该方法应用DBSCAN聚类算法对点云数据进行聚类，返回一个包含每个点的聚类标签的数组。print_progress=True 会在计算时显示进度条。</span>
+max_label=labels.<span class="hljs-built_in">max</span>()<span class="hljs-comment"># 获取聚类标签的最大值[-1,0,1,2,3...,max_label],label=-1为噪声，所以总聚类个数为max_label+1</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;获取聚类标签的最大值完毕&quot;</span>)
+colors=plt.get_cmap(<span class="hljs-string">&quot;tab20&quot;</span>)(labels/(max_label <span class="hljs-keyword">if</span> max_label&gt;<span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-number">1</span>))
+<span class="hljs-comment"># 使用 matplotlib 的 tab20 颜色映射来为不同的聚类分配颜色。labels / max_label 将标签归一化到 [0, 1] 的范围内，以便为每个聚类选择不同的颜色。</span>
+colors[labels&lt;<span class="hljs-number">0</span>]=<span class="hljs-number">0</span> <span class="hljs-comment"># labe=-1为噪声，黑色表示</span>
+pcd.colors=o.utility.VerbosityContextManager(colors[:,:,<span class="hljs-number">3</span>])
+o.visualization.draw_geometries([pcd])
+</code></pre>
+<h1 id="点云的空间变化">点云的空间变化</h1>
+<p><img src="file:///e:\github\Notes\点云无人机学习\learn\image-10.png" alt="alt text">
+<img src="file:///e:\github\Notes\点云无人机学习\learn\image-11.png" alt="alt text">
+<img src="file:///e:\github\Notes\点云无人机学习\learn\image-12.png" alt="alt text"></p>
+<pre><code class="language-py"><span class="hljs-comment"># 平移向量实现点云平移</span>
+pcd_tx=copy.deepcopy(pcd).translate((<span class="hljs-number">0.2</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>))<span class="hljs-comment"># 创建 pcd 的深拷贝，使 pcd_tx 和原始点云 pcd 互不影响</span>
+pcd_tx.paint_uniform_color([<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>])
+
+<span class="hljs-comment"># 将质心放在指定点</span>
+pcd_new=copy.deepcopy(pcd).translate((<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>),relative=<span class="hljs-literal">False</span>)
+pcd_new.paint_uniform_color([<span class="hljs-number">0</span>,<span class="hljs-number">0.5</span>,<span class="hljs-number">0.9</span>])
+</code></pre>
+<h1 id="其他常用算法">其他常用算法：</h1>
+<h2 id="1点云赋色">1，点云赋色</h2>
+<p><img src="file:///e:\github\Notes\点云无人机学习\learn\image-13.png" alt="alt text"></p>
+<pre><code class="language-py">pcd.paint_uniform_color([<span class="hljs-number">0</span>,<span class="hljs-number">0.5</span>,<span class="hljs-number">0.9</span>])
+</code></pre>
+<h2 id="2根据索引提取点云">2,根据索引提取点云:</h2>
+<pre><code class="language-py">select_by_index(self, indices, invert=<span class="hljs-literal">False</span>)
+</code></pre>
+<pre><code class="language-py"><span class="hljs-comment"># 索引对应的点云（内点）</span>
+inlier_pcd = pcd.select_by_index(idx)
+inlier_pcd.paint_uniform_color([<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>])
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;内点点云：&quot;</span>, inlier_pcd)
+
+<span class="hljs-comment"># 索引外的点云（外点）</span>
+outlier_pcd = pcd.select_by_index(idx, invert=<span class="hljs-literal">True</span>)     <span class="hljs-comment"># 对索引取反</span>
+outlier_pcd.paint_uniform_color([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>])
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;外点点云：&quot;</span>, outlier_pcd)
+</code></pre>
+<h2 id="3计算质心">3,计算质心</h2>
+<pre><code class="language-py">pcd.get_center()
+</code></pre>
+<h2 id="4点云体素化">4，点云体素化：</h2>
+<pre><code class="language-py"><span class="hljs-comment"># --------------------------- 体素化点云 -------------------------</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;执行体素化点云&#x27;</span>)
+voxel_grid = o3d.geometry.VoxelGrid.create_from_point_cloud(pcd, voxel_size=<span class="hljs-number">0.005</span>)
+</code></pre>
+<h2 id="5计算点云凸包">5,计算点云凸包</h2>
+<h3 id="1-什么是凸包作用是什么">1. 什么是凸包？作用是什么？</h3>
+<p>**凸包（Convex Hull）**是指给定一组点的最小凸多边形或多面体，它包含了所有这些点。简单来说，凸包可以看作是一块橡皮筋，包住所有点后收紧，形成的边界就是凸包。</p>
+<h4 id="数学定义">数学定义：</h4>
+<p>对于平面上的点集，凸包是一个多边形，其所有的顶点均来自该点集，并且包含点集内所有点。凸包具有这样一个特性：任意两点连线的线段完全在多边形或多面体内部。</p>
+<h4 id="作用">作用：</h4>
+<p>形状分析：在计算机视觉中，凸包可以用于计算物体的大致外形，它能够为形状分析提供基础。
+碰撞检测：在游戏开发和机器人学中，凸包用于加速碰撞检测。因为凸包能够简单地表示物体的边界，简化复杂的形状。
+几何算法：凸包是很多几何算法的基础，比如多边形的合并、点的包围等。
+数据降维和聚类分析：凸包还用于高维数据的几何特征提取，帮助识别和包围数据点。</p>
+<h3 id="什么是-hull">什么是 hull？</h3>
+<p>hull 是凸包的英文缩写或简称，指的是计算出的 凸包结构，即包围给定点集的最小凸形几何体。在3D点云处理中，计算凸包可以得到点云数据的最小凸包形状，通常会返回一个由顶点和三角形面片构成的几何体。</p>
+<p>在Open3D中，hull 通常表示通过 compute_convex_hull() 函数计算出来的结果，包含点云凸包的三角网格数据（顶点和面片）。这个 hull 可以用于进一步处理和可视化。</p>
+<h3 id="什么是凸包三角网格转换为线框模型">什么是凸包三角网格转换为线框模型？</h3>
+<p>**三角网格（Triangle Mesh）**是通过一组三角形（由顶点和边组成）表示一个3D表面或多边形结构的方式。每个三角形由三个顶点和对应的边组成，用来表示多边形的表面。</p>
+<p>线框模型（Line Set） 是三角网格的一种简化表示方式。它仅包含多边形的边，而忽略了面片。通过线框模型，可以直观地看到几何体的轮廓和结构，而不需要显示整个三角面片。</p>
+<p>在代码中，hull_ls = o.geometry.LineSet.create_from_triangle_mesh(hull) 表示将计算出的凸包 hull（三角网格形式）转换为线框模型 hull_ls，这使得凸包可以通过边线的形式进行可视化。</p>
+<p>作用：</p>
+<p>线框模型可以简化几何形状的表示，减少数据量，便于快速渲染和显示几何体的基本结构。
+在一些分析和可视化场景下，只需要看到物体的轮廓，而不需要整个表面结构时，线框模型会非常有用。</p>
+<pre><code class="language-py"><span class="hljs-comment"># 计算点云凸包：</span>
+hull,_=pcd.compute_convex_hull()<span class="hljs-comment"># hull 是一个三角网格对象，表示包含点云的最小凸形几何体。</span>
+hull_ls=o.geometry.LineSet.create_from_triangle_mesh(hull)<span class="hljs-comment"># 将凸包三角网格转换为线框模型，hull_ls 是一个线集，便于可视化凸包。</span>
+hull_ls.paint_uniform_color([<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>])
+o.visualization.draw_geometries([pcd,hull_ls])
+
+</code></pre>
+<h2 id="6计算点云最小包围盒">6，计算点云最小包围盒</h2>
+<h3 id="什么是轴向对齐包围盒">什么是轴向对齐包围盒？</h3>
+<p>轴向对齐包围盒（Axis-Aligned Bounding Box，AABB） 是一种简单的几何体，用一个与坐标轴对齐的长方体（矩形）来包围给定的3D点集或几何体。</p>
+<p>特点：
+对齐坐标轴：包围盒的边总是与坐标轴平行（即 x、y、z 轴），因此它是最简单的包围盒类型。
+快速计算：AABB 的计算只需要找到点云或几何体的最小和最大坐标值，适合快速碰撞检测和空间查询。
+精度较低：由于它是轴对齐的，AABB 可能会有多余的空间包围目标，尤其当目标物体不与坐标轴对齐时，这会导致包围盒不够紧凑。
+作用：
+碰撞检测：AABB 是许多物理引擎中最常用的包围盒形式，用于快速判断两个物体是否有可能碰撞。
+几何体的包围与筛选：AABB 是确定点云或几何体是否在某个区域内的基本方法，广泛用于3D模型的空间分割、光线追踪等应用。</p>
+<h3 id="什么是最小定向包围盒">什么是最小定向包围盒？</h3>
+<p>最小定向包围盒（Oriented Bounding Box，OBB） 是一种几何包围盒，它不像AABB那样与坐标轴对齐，而是可以根据几何体的方向进行旋转，使其尽可能紧密地包围目标物体。</p>
+<p>特点：
+旋转对齐：OBB 可以根据点云或几何体的主方向进行旋转，因此包围体更加紧凑，避免AABB中可能存在的多余空间。
+更复杂的计算：与AABB相比，OBB的计算更复杂，因为需要找到点云或几何体的最佳旋转方向。
+精度更高：由于OBB可以进行旋转，因此它通常比AABB更精确，能够更好地描述物体的外部轮廓。
+作用：
+更精准的碰撞检测：在需要更高精度的碰撞检测或空间查询时，OBB通常优于AABB。
+形状匹配和分析：由于OBB更紧密地包围物体，它常用于几何形状的匹配、对象检测、机器人路径规划等应用中。</p>
+<pre><code class="language-py"><span class="hljs-comment"># 计算点云轴向对齐包围盒</span>
+aabb=pcd.get_axis_aligned_bounding_box()<span class="hljs-comment"># 计算 pcd 的轴对齐包围盒（AABB），即沿着坐标轴方向最小化的长方体。aabb 是这个包围盒对象</span>
+aabb.color=(<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>)
+<span class="hljs-comment"># 计算点云最小包围盒：</span>
+obbb=pcd.get_oriented_bounding_box()<span class="hljs-comment"># 计算 pcd 的最小定向包围盒（OBB），即考虑旋转后的最小包围体。obbb 是这个定向包围盒对象</span>
+obbb.color=(<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>)
+o.visualization.draw_geometries([pcd,aabb,obbb])
+</code></pre>
+<h3 id="名词解释">名词解释：</h3>
+<h4 id="凸包convex-hull">凸包（Convex Hull）：</h4>
+<p>是包含所有点的最小凸多边形或多面体，用于形状分析、碰撞检测等。</p>
+<h4 id="hull">hull：</h4>
+<p>是凸包的具体几何体，通常指凸包的三角网格数据。</p>
+<h4 id="凸包三角网格转换为线框模型">凸包三角网格转换为线框模型：</h4>
+<p>将凸包的三角面片转化为只包含边的线框模型，简化表示并用于可视化。</p>
+<h4 id="轴向对齐包围盒aabb">轴向对齐包围盒（AABB）：</h4>
+<p>与坐标轴对齐的最小包围长方体，适合快速计算，但不够精确。</p>
+<h4 id="最小定向包围盒obb">最小定向包围盒（OBB）：</h4>
+<p>根据几何体方向旋转的最小包围盒，比AABB更精确，适合更复杂的几何分析。</p>
+<h2 id="7计算点云之间的距离">7，计算点云之间的距离</h2>
+<p><img src="file:///e:\github\Notes\点云无人机学习\learn\image-14.png" alt="alt text"></p>
+<pre><code class="language-py">disc=pcd.compute_point_cloud_distance(pcd_tx)<span class="hljs-comment"># 计算两个点云之间的距离，返回每个点到另一个点云中最近点的距离。disc 是一个包含距离的列表</span>
+disc=np.asarray(disc)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;打印前十个点&quot;</span>,disc[:<span class="hljs-number">10</span>])
+
+ind=np.where(disc&gt;<span class="hljs-number">0.85</span>)[<span class="hljs-number">0</span>]
+pcd3=pcd.select_by_index(ind)
+</code></pre>
 </div>
         </div>
             
