@@ -2,6 +2,8 @@
 # S, of n elements. What is your running time and space usage?
 
 # Answer:描述：比较序列的第一个元素和传下来的maxnum元素，当剩下来的序列不为1的时候，进行递归，将序列的第一个元素去掉，切片进行迭代。running time:O(n)，space useage:O(n)
+
+
 # R-4.7 Describe a recursive function for converting a string of digits into the integer it 
 # represents. For example, 13531 represents the integer 13,531.
 
