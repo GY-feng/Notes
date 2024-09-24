@@ -8,6 +8,8 @@
 二分答案：
 ![img_2.png](img_2.png)
 
+二分搜索，考试必考！！！
+![alt text](image.png)
 时间复杂度：
 ![img_3.png](img_3.png)
 
