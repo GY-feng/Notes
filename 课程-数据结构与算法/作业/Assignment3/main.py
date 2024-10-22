@@ -84,3 +84,8 @@ def countSon(Node):
 # Original: At which positions of a heap might the largest key be stored?
 #
 # 中文：在堆的哪些位置可能存储最大键值？
+'''
+最大堆：根节点的位置
+最小堆：最末一层的叶子节点
+
+'''
