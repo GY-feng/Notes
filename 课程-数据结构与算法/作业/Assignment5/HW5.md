@@ -1,3 +1,4 @@
+```python
 # R-10.4 What is the worst-case running time for inserting n key-value pairs into an initially empty map M that is implemented with the UnsortedTableMap class?
 
 
@@ -34,10 +35,15 @@ index    key
 最坏：全部都在同一个索引，时间复杂度为o(n^2)
 最好：都在不同的索引，时间复杂度为o(n)
 '''
+```
 
+```python
 # R-11.2 Insert, into an empty binary search tree, entries with keys 30, 40, 24, 58, 48, 26, 11, 13 (in this order). Draw the tree after each insertion.
 
-# 中文翻译：R-11.2 将键值为 30、40、24、58、48、26、11、13 的条目（按此顺序）插入到一个空的二叉搜索树中。每次插入后绘制树的结构。
+```
+![alt text](1262e6ef0e5ecea985f4b44ce4edbca.jpg)
+
+```python
 
 # R-12.7 Suppose we are given two n-element sorted sequences A and B each with distinct elements, but potentially some elements that are in both sequences. Describe an O(n)-time method for computing a sequence representing the union A ∪ B (with no duplicates) as a sorted sequence.
 
@@ -58,3 +64,5 @@ index    key
 '''
 O(n^2)
 '''
+
+```

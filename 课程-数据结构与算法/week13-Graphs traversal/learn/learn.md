@@ -47,11 +47,15 @@ DFS 在图中每个顶点最多访问一次，每条边最多检查两次（无�
 DFS 可以通过递归或使用栈来实现。每次访问一个顶点时，将其标记为已访问，并通过递归访问其邻居。为了构建DFS树，我们可以使用一个字典来记录每个顶点的发现边。
 ![alt text](image-2.png)
 
+discovered结构：节点是存储某个点，值是存储某个边,eg:d[B]=(A,B),这个词典：对内，可以保存那些点访问过，对外，可以呈现搜索树
 
 2，u到v路径的重建：
 ![alt text](image-4.png)
 
 ![alt text](image-3.png)
+
+
+这里u必须是dfs的节点！！！
 ```python
 def construct_path(u, v, discovered):
     """
@@ -67,7 +71,7 @@ def construct_path(u, v, discovered):
     path: 从 u 到 v 的路径列表
     """
     path = []  # 用于存储从 v 到 u 的路径
-    if v in discovered:  # 如果 v 是被发现的节点
+    if v in discovered:  # 如果 v 是被发现的节点（v是可达的）
         path.append(v)  # 首先加入目标顶点 v
         walk = v
         
@@ -80,7 +84,6 @@ def construct_path(u, v, discovered):
     
     return path
 ```
-![alt text](image-10.png)
 
 检测图的连通性：
 
